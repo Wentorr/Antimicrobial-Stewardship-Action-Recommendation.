@@ -1,6 +1,6 @@
-# Antimicrobial Stewardship Action Recommendation
+# Antimicrobial Stewardship Note Action Sequencing
 
-Recommendation challenge for ranking top-three antimicrobial stewardship interventions from culture follow-up packets.
+NLP challenge for converting stewardship culture-follow-up notes and clinical context into a ranked three-action JSON sequence.
 
 Use:
 
@@ -9,4 +9,4 @@ Use:
 - `prepare.py` for the Eris prepare script.
 - `grade.py` for the Eris grading script.
 - `rubrics.yaml` for initial rubric criteria.
-- `antimicrobial-stewardship-action-recommendation-raw.zip` as the raw dataset upload.
+- `antimicrobial-stewardship-note-action-sequencing-raw.zip` as the raw dataset upload.

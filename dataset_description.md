@@ -1,10 +1,10 @@
-# Antimicrobial Stewardship Action Recommendation Dataset
+# Antimicrobial Stewardship Note Action Sequencing Dataset
 
 ## Overview
 
-This dataset contains de-identified synthetic antimicrobial stewardship packets for hospital culture follow-up. Each row represents a single stewardship review case with patient context, culture findings, resistance-marker information, current antimicrobial therapy, renal and allergy safety fields, source-control status, oral stepdown readiness, local antibiogram context, and a short narrative note.
+This dataset contains de-identified synthetic antimicrobial stewardship packets for hospital culture follow-up. Each row represents a single stewardship review case with patient context, culture findings, resistance-marker information, current antimicrobial therapy, renal and allergy safety fields, source-control status, oral stepdown readiness, local antibiogram context, and a short natural-language note.
 
-The benchmark supports recommendation systems that rank the best next stewardship actions. The target is a top-three action manifest ordered from highest to lower recommendation priority.
+The benchmark supports NLP systems that convert stewardship notes and normalized clinical context into a three-action JSON sequence. The target is a top-three action manifest ordered from highest to lower action priority.
 
 The dataset is generated locally by the included `generate_raw.py` script using deterministic stewardship templates and a fixed random seed. It does not contain real patient data, hospital names, medical record numbers, prescriber names, or external clinical source labels.
 
@@ -56,7 +56,7 @@ The Eris prepare script creates these challenge files:
 | `calibration_strength` | float | Magnitude of the visible local policy adjustment. |
 | `candidate_actions` | string | Pipe-separated list of valid actions. |
 | `stewardship_note` | string | Natural-language summary of the stewardship packet. |
-| `action_manifest` | JSON string | Target top-three action recommendation. |
+| `action_manifest` | JSON string | Target top-three action sequence. |
 | `action_scores_json` | JSON string | Private action relevance scores used for NDCG-style grading. |
 | `top_action_family` | categorical | Private family of the highest-relevance action. |
 | `difficulty_tier` | categorical | Easy, medium, or hard based on action-score separation and competing cues. |
@@ -94,13 +94,13 @@ The Eris prepare script creates these challenge files:
 | `calibration_strength` | float | train, test | Policy adjustment strength. |
 | `candidate_actions` | string | train, test | Pipe-separated action catalog for the row. |
 | `stewardship_note` | string | train, test | Natural-language stewardship summary. |
-| `action_manifest` | JSON string | train, submission | Ranked top-three action recommendation. |
+| `action_manifest` | JSON string | train, submission | Ranked top-three action sequence. |
 
 ## Data Characteristics
 
 - Training rows: 5,200.
 - Test rows: 1,600.
 - Candidate actions per case: 12.
-- Output actions per case: 3 ranked recommendations.
+- Output actions per case: 3 ranked actions.
 - Hard held-out cases emphasize competing stewardship cues, rare resistance markers, renal/allergy safety conflicts, and local policy calibration shifts.
 - Random valid top-three action lists are expected to score near 0.10 to 0.25 because the action catalog is large and the grader checks the strictest hidden worst-group robustness score.
